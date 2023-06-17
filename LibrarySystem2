@@ -1,0 +1,106 @@
+using System;
+
+class Program
+{
+    static string[] bookTitles = {
+        "Beauty Queens – Libba Bray",
+        "Before I Let Go – Marieke Nijkamp",
+        "The Belles (#1) – Dhonielle Clayton",
+        "Big Bones – Laura Dockrill",
+        "Caraval – Stephanie Garber",
+        "Coraline – Neil Gaiman",
+        "Dangerous Lies – Becca Fitzpatrick",
+        "Descendants – Rae Else",
+        "Fangirl – Rainbow Rowell",
+        "Final Girls – Riley Sager",
+        "Girlhood – Cat Clarke",
+        "Hades – Alexandra Adornetto",
+        "Heaven – Alexandra Adornetto",
+        "Home Fire – Kamila Shamsie",
+        "Internment – Samira Ahmed",
+        "Kindred Spirits – Rainbow Rowell",
+        "Milk and Honey – Rupi Kaur",
+        "Oleanna – David Mamet",
+        "Paintbrush – Hannah Bucchin",
+        "Zenn Diagram – Wendy Brant"
+    };
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Welcome to the Daryl's Library!");
+
+        DisplayBookList();
+
+        Console.Write("Enter the number of books you need: ");
+        int numberOfBooks;
+        if (!int.TryParse(Console.ReadLine(), out numberOfBooks))
+        {
+            Console.WriteLine("Invalid input. Please enter a valid input.");
+            return;
+        }
+
+        Console.WriteLine();
+
+        for (int i = 1; i <= numberOfBooks; i++)
+        {
+            Console.WriteLine($"Book #{i}");
+            string title = GetBookTitle();
+
+            int numberOfDays = GetNumberOfDays();
+
+            DateTime currentDate = GetCurrentDate();
+
+            DateTime expectedReturnDate = currentDate.AddDays(numberOfDays);
+
+            Console.WriteLine($"Expected return date for {title}: {expectedReturnDate.ToString("dd/MM/yyyy")}");
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("Thank you for using the Daryl's Library!");
+        Console.ReadKey();
+    }
+
+    static void DisplayBookList()
+    {
+        Console.WriteLine("LIST OF BOOKS:");
+        for (int i = 0; i < bookTitles.Length; i++)
+        {
+            Console.WriteLine($"{i + 1}. {bookTitles[i]}");
+        }
+        Console.WriteLine();
+    }
+
+    static string GetBookTitle()
+    {
+        Console.Write("Enter the title of the book: ");
+        return Console.ReadLine();
+    }
+
+    static int GetNumberOfDays()
+    {
+        Console.Write("Enter the number of days you need the book: ");
+        if (int.TryParse(Console.ReadLine(), out int numberOfDays))
+        {
+            return numberOfDays;
+        }
+        else
+        {
+            Console.WriteLine("Invalid input.");
+            return 0;
+        }
+    }
+
+    static DateTime GetCurrentDate()
+    {
+        Console.Write("Enter the current date (format: dd/MM/yyyy): ");
+        if (DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out DateTime currentDate))
+        {
+            return currentDate;
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please enter in the format: dd/MM/yyyy.");
+            return DateTime.MinValue;
+        }
+    }
+}
